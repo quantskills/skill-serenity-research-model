@@ -1,233 +1,141 @@
-# Serenity Research Model
+# 🛰️ Serenity Research Model Skill
 
-> Reverse-engineer Serenity's public X/Twitter research model from historical posts.
+**简体中文** | [English](README.en.md)
 
-> 基于 Serenity（`@aleabitoreddit`）公开历史推文，反推出他的投资研究模型。
+> 从 Serenity（@aleabitoreddit）的公开 X 帖子里逆向研究逻辑：`extract → clean → auto-review → evaluate → report` 五段流水线，把帖子拆成最小信号单元，并用价格数据回看公开 call 的后续表现。
 
-Language / 语言： [English](#english) | [中文](#中文)
-
-## English
-
-### What This Is
-
-`serenity-research-model` is a portable agent skill for analyzing Serenity's public research behavior on X/Twitter.
-
-It is not a copy-trading tool and it does not verify private profit claims. It turns public posts into structured research evidence:
-
-- ticker-level public signals
-- themes and subthemes
-- supply-chain roles
-- bottleneck claims
-- evidence types
-- catalysts
-- risks
-- quote context
-- forward-return evaluation when local price data is available
-
-The skill was built from a real Serenity MVP run and can be imported or adapted into agent environments such as Claude Code, OpenClaw, Codex-style skill systems, or other local AI agent runtimes.
-
-### Why Serenity
-
-Serenity became influential because his public posts often focus on under-covered AI infrastructure bottlenecks rather than only obvious mega-cap winners.
-
-The cleaned research model shows that his strongest forward-looking thesis posts are concentrated around:
-
-- Photonics / CPO
-- InP and optical components
-- AI data-center supply chains
-- memory / HBM
-- power and grid infrastructure
-- robotics / physical AI
-
-### What The Skill Does
-
-The core script is:
-
-```powershell
-python .\scripts\serenity_mvp.py
-```
-
-Main commands:
-
-```powershell
-python .\scripts\serenity_mvp.py extract --posts <posts.csv> --out <out_dir>
-python .\scripts\serenity_mvp.py clean --signals <signals.csv> --posts <posts.csv> --out <out_dir>
-python .\scripts\serenity_mvp.py auto-review --signals <manual_review_queue.csv> --out <out_dir>
-python .\scripts\serenity_mvp.py evaluate --signals <signals.csv> --prices <price_dir> --out <out_dir>
-python .\scripts\serenity_mvp.py report --signals <signals.csv> --out <out_dir>
-```
-
-### Key Outputs
-
-Typical outputs include:
-
-- `signals.csv`
-- `theme_summary.csv`
-- `manual_review_queue.csv`
-- `quote_relationships.csv`
-- `signals_auto_reviewed.csv`
-- `signals_forward_clean.csv`
-- `signals_high_quality_thesis.csv`
-- `signal_evaluation.csv`
-- `serenity_model_report.md`
-
-### Real MVP Reports
-
-The first real-data MVP run produced several Chinese reports:
-
-- `serenity_research_model_zh.md`
-- `serenity_forward_research_model_zh.md`
-- `serenity_high_quality_thesis_template_zh.md`
-- `forward_return_recalculation.md`
-
-These reports are run artifacts, not required runtime dependencies.
-
-### Data Boundary
-
-This skill only analyzes public material. It does not:
-
-- verify Serenity's private portfolio
-- prove real trading profits
-- scrape private or restricted X data
-- recommend trades
-- treat public return claims as audited records
-
-### Repository Hygiene
-
-Do not bundle raw X exports, large CSVs, cloned repositories, or downloaded price files into the skill package.
-
-Recommended to commit:
-
-- `SKILL.md`
-- `README.md`
-- `scripts/`
-- `references/`
-- `agents/openai.yaml`
-- lightweight Markdown reports
-
-Recommended to keep outside Git:
-
-- raw X exports
-- large generated CSVs
-- downloaded price histories
-- cloned third-party source repositories
+![type](https://img.shields.io/badge/type-agent--skill-blue)
+![cli](https://img.shields.io/badge/cli-serenity__mvp.py-orange)
+![pipeline](https://img.shields.io/badge/pipeline-extract_·_clean_·_review_·_evaluate_·_report-brightgreen)
+![sibling](https://img.shields.io/badge/generalized_by-skill--x--trader--builder-9cf)
+![license](https://img.shields.io/badge/license-GPLv3-blue)
 
 ---
 
-## 中文
+## 📖 这是什么
 
-### 这是什么
+`serenity-research-model` 是一个**便携 Agent Skill**：把 Serenity 的公开 X 帖子、保存的 thread、导出数据集，重构成可复用的研究模型。目标不是验证私人收益或跟单，而是**逆向公开帖子里可观察的推理模式**，并检验这些公开信号事后的价格表现。
 
-`serenity-research-model` 是一个通用 Agent 平台 Skill，用来分析 Serenity（X 账号 `@aleabitoreddit`）的公开研究行为。
+它内置一个完整的 Python 流水线（`scripts/serenity_mvp.py`）：信号提取、cashtag 白名单清洗、引用/免责/反讽语句的复核队列、语义自动标注、前向收益评估（1/5/20/60/120 个交易日 + 最大回撤）和最终报告生成。`validation/` 里保存了 Top200 人工复核报告和最终研究模型文档，作为质量基线。
 
-它不是跟单工具，也不是用来证明 Serenity 真实赚了多少钱。它做的是把公开推文拆成结构化研究证据：
+本仓库是该方法论的**第一个实例**，其通用化版本是姊妹仓库 [`skill-x-trader-builder`](https://github.com/quantskills/skill-x-trader-builder)。
 
-- ticker 级别公开信号
-- 主题和子主题
-- 供应链位置
-- bottleneck / chokepoint 论点
-- 证据类型
-- 催化
-- 风险
-- 引用关系
-- 如果有本地价格数据，还可以做 forward return 评估
+> ⚠️ 不验证私人组合收益、不跟单、公开晒单一律按「未验证」处理。
 
-这个 skill 已经基于 Serenity 真实公开数据跑过 MVP，可以导入或改造到 Claude Code、OpenClaw、Codex 风格 Skill 系统，以及其他本地 AI Agent 运行环境。
+---
 
-### 为什么是 Serenity
+## ⚡ 流水线
 
-Serenity 的价值不在于“喊过哪些票”，而在于他的公开高质量 thesis 经常围绕 AI 基建里的供应链瓶颈，而不是只看最显眼的大市值公司。
+```mermaid
+flowchart TD
+    A["📥 收集公开材料<br/>X 导出 CSV/JSON/JSONL/TXT/MD · 保存的帖子 URL · 归档 HTML"] --> B["1️⃣ extract<br/>归一化到 data_contract 信号表"]
+    B --> C["2️⃣ clean<br/>cashtag 白名单过滤 · 生成复核队列<br/>（引用 / 免责声明 / 反讽 / 无 ticker 主题贴）"]
+    C --> D["3️⃣ 人工复核优先行"]
+    D --> E["4️⃣ auto-review<br/>套用已学语义标签：引用贴 · 历史战绩 · 众包 watchlist · 活跃 thesis"]
+    E --> F{"💹 有价格数据？<br/>每 ticker 一个 CSV（date, close）"}
+    F -->|有| G["5️⃣ evaluate<br/>1/5/20/60/120 日前向收益 + 最大回撤"]
+    F -->|无| H["6️⃣ report"]
+    G --> H["6️⃣ report<br/>画像 · 逻辑树 · 证据图 · 风险图 · 研究清单"]
+    H --> I["📝 serenity_model_report.md + 信号 CSV 全家桶"]
 
-清洗后的模型显示，他最强的前瞻研究主要集中在：
-
-- Photonics / CPO
-- InP 和光学组件
-- AI 数据中心供应链
-- memory / HBM
-- 电力和电网基础设施
-- robotics / physical AI
-
-### 这个 Skill 能做什么
-
-核心脚本：
-
-```powershell
-python .\scripts\serenity_mvp.py
+    style A fill:#e3f2fd,stroke:#1976d2
+    style D fill:#fff3e0,stroke:#f57c00
+    style I fill:#e8f5e9,stroke:#388e3c
 ```
 
-主要命令：
+---
 
-```powershell
-python .\scripts\serenity_mvp.py extract --posts <posts.csv> --out <out_dir>
-python .\scripts\serenity_mvp.py clean --signals <signals.csv> --posts <posts.csv> --out <out_dir>
-python .\scripts\serenity_mvp.py auto-review --signals <manual_review_queue.csv> --out <out_dir>
-python .\scripts\serenity_mvp.py evaluate --signals <signals.csv> --prices <price_dir> --out <out_dir>
-python .\scripts\serenity_mvp.py report --signals <signals.csv> --out <out_dir>
+## 🗂️ CLI 子命令 × 输入输出
+
+| 子命令 | 输入 | 产出 |
+| --- | --- | --- |
+| `extract` | `--posts` 帖子导出（csv/json/jsonl/txt/md，最少含 `created_at`+`text`） | 原始信号表 |
+| `clean` | `--signals` + `--posts`（或 `--ticker-stats` 兜底） | 清洗后信号 + `manual_review_queue.csv` + `quote_relationships.csv` |
+| `auto-review` | `--signals` 人工复核后的队列 | 带语义标签的 `*_reviewed.csv` |
+| `evaluate` | `--signals` + `--prices` 价格目录（`<TICKER>.csv`） | `signal_evaluation.csv`（前向收益 + 回撤） |
+| `report` | `--signals`（自动并入已有评估结果） | `serenity_model_report.md` |
+
+每条信号在最小单元上分解：ticker、主题/子主题、瓶颈论断、供应链角色、证据类型、催化、时间窗、风险标记、信心信号、跟进/修正关系。
+
+---
+
+## 🚀 快速开始
+
+### 1️⃣ 安装
+
+```bash
+# Claude Code（全局）
+cp -r skill-serenity-research-model ~/.claude/skills/serenity-research-model
 ```
 
-### 典型输出
+Codex / OpenClaw 等平台：保持 `SKILL.md` + `references/` + `scripts/` 结构导入；`agents/openai.yaml` 提供 OpenAI/Codex 适配。
 
-常见输出包括：
+### 2️⃣ 触发示例
 
-- `signals.csv`
-- `theme_summary.csv`
-- `manual_review_queue.csv`
-- `quote_relationships.csv`
-- `signals_auto_reviewed.csv`
-- `signals_forward_clean.csv`
-- `signals_high_quality_thesis.csv`
-- `signal_evaluation.csv`
-- `serenity_model_report.md`
+```text
+把这份 Serenity 帖子导出整理成研究模型
+跑一遍 serenity 流水线，价格数据在 prices/ 目录
+这批信号里哪些是引用贴、哪些是真正的前瞻 thesis？
+```
 
-### 已完成的真实 MVP 报告
+### 3️⃣ 直接跑流水线
 
-第一版真实数据 MVP 已经产出中文报告：
+```bash
+python scripts/serenity_mvp.py extract     --posts posts.csv --out run1
+python scripts/serenity_mvp.py clean       --signals run1/signals.csv --posts posts.csv --out run1
+python scripts/serenity_mvp.py auto-review --signals run1/manual_review_queue.csv --out run1
+python scripts/serenity_mvp.py evaluate    --signals run1/signals.csv --prices prices/ --out run1
+python scripts/serenity_mvp.py report      --signals run1/signals.csv --out run1
+```
 
-- `serenity_research_model_zh.md`
-- `serenity_forward_research_model_zh.md`
-- `serenity_high_quality_thesis_template_zh.md`
-- `forward_return_recalculation.md`
+---
 
-这些报告是运行结果，不是 Skill 运行时必须依赖。
+## 📦 目录结构
 
-### 数据边界
+```text
+skill-serenity-research-model/
+├── SKILL.md                                      # 技能入口：六步工作流 + 解释规则 + 输出契约
+├── scripts/
+│   └── serenity_mvp.py                           # 🐍 extract/clean/auto-review/evaluate/report 流水线
+├── references/
+│   ├── trader_profile.md                         # 🧑‍💻 公开账号画像
+│   ├── data_contract.md                          # 📋 信号表字段契约
+│   ├── serenity_axes.md                          # 🧭 观察 → 模型的转换轴
+│   ├── research_template.md                      # 📄 研究模型报告模板
+│   ├── review_rules.md                           # 🏷️ 语义复核规则
+│   ├── source_boundary.md                        # 🚧 公开资料边界
+│   └── source_notes.md                           # 🗒️ 数据来源笔记
+├── validation/                                   # ✅ 人工复核与最终模型基线
+│   ├── manual_review_top200_report_zh.md
+│   ├── semantic_filter_summary.md
+│   ├── signal_evaluation_summary.md
+│   ├── serenity_research_model_zh.md
+│   ├── serenity_forward_research_model_zh.md
+│   └── serenity_high_quality_thesis_template_zh.md
+└── agents/
+    └── openai.yaml                               # OpenAI/Codex 适配
+```
 
-这个 skill 只分析公开材料。它不做：
+---
 
-- 不验证 Serenity 私人持仓
-- 不证明真实交易收益
-- 不抓取私有或受限 X 数据
-- 不推荐交易
-- 不把公开收益声明当成审计业绩
+## 📐 核心约束
 
-### GitHub 上传建议
+| 约束 | 说明 |
+| --- | --- |
+| 🌐 只用公开材料 | 用户提供的导出、公开帖子 URL、归档页面；记录来源与抓取日期 |
+| 🧾 收益声明不背书 | 截图、粉丝量、病毒式回报数字一律标「未验证」 |
+| ✂️ 引用与本人观点分离 | 区分账号本人的话和被引用文字，引用贴单独建表 |
+| ⚖️ 赢家偏差防控 | 失败、过期、被修正的观点与成功观点同等入库 |
+| 📉 研究贴 ≠ 拉盘贴 | 病毒式传播本身可能成为催化，需单独标记 |
+| 🚫 只述不荐 | 输出研究结构与事实归纳，不构成任何投资建议 |
+| 📦 Git 卫生 | 不提交原始导出、大型 CSV 与价格历史数据 |
 
-不要把原始 X 导出、大型 CSV、克隆仓库、下载价格数据打包进 Skill。
+---
 
-建议上传：
+## ⚠️ 免责声明
 
-- `SKILL.md`
-- `README.md`
-- `scripts/`
-- `references/`
-- `agents/openai.yaml`
-- 轻量 Markdown 报告
+本仓库仅对公开材料做研究方法层面的逆向与归纳，不代表 Serenity 本人，不验证任何收益声明，不构成任何投资建议。
 
-建议放在 Git 外部：
-
-- 原始 X 导出
-- 大型生成 CSV
-- 下载价格数据
-- 克隆的第三方仓库
-
-### 一句话总结
-
-`serenity-research-model` 是“白毛股神”公开研究方法的逆向工程工具。
-
-它把公开推文里的噪声、引用和复盘剥离掉，提取真正可复用的供应链研究框架。
-
-## License / 许可证
+## 📜 License
 
 This project is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
-
-本项目使用 GNU General Public License v3.0（GPL-3.0）协议发布，详见 [LICENSE](LICENSE)。
