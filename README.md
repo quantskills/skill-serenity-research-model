@@ -225,3 +225,9 @@ python .\scripts\serenity_mvp.py report --signals <signals.csv> --out <out_dir>
 `serenity-research-model` 是“白毛股神”公开研究方法的逆向工程工具。
 
 它把公开推文里的噪声、引用和复盘剥离掉，提取真正可复用的供应链研究框架。
+
+## License / 许可证
+
+This project is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
+
+本项目使用 GNU General Public License v3.0（GPL-3.0）协议发布，详见 [LICENSE](LICENSE)。

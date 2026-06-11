@@ -7,6 +7,7 @@ quantSkills:
   repository_url: https://github.com/quantskills/skill-serenity-research-model
   project_type: skill
   collection: trader-research-models
+  license: GPL-3.0
 ---
 
 # Serenity Research Model
