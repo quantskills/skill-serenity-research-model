@@ -1,6 +1,12 @@
 ---
 name: serenity-research-model
-description: Reconstruct Serenity-style investment research logic from public X/Twitter posts, saved threads, exported post datasets, public summaries, and ticker histories. Use when an agent needs to analyze @aleabitoreddit/Serenity, decompose AI or semiconductor supply-chain investment theses at the smallest practical unit, build a structured signal dataset, evaluate public calls versus later price action, or produce a reusable Serenity-style research model for portable agent platforms such as Claude Code, OpenClaw, Codex-style skill systems, or other local AI agent runtimes.
+description: Reconstruct Serenity-style investment research logic from public X/Twitter
+  posts, saved threads, exported post datasets, public summaries, and ticker histories.
+  Use when an agent needs to analyze @aleabitoreddit/Serenity, decompose AI or semiconductor
+  supply-chain investment theses at the smallest practical unit, build a structured
+  signal dataset, evaluate public calls versus later price action, or produce a reusable
+  Serenity-style research model for portable agent platforms such as Claude Code,
+  OpenClaw, Codex-style skill systems, or other local AI agent runtimes.
 quantSkills:
   organization: https://github.com/quantskills
   repository: quantskills/skill-serenity-research-model
@@ -8,6 +14,27 @@ quantSkills:
   project_type: skill
   collection: trader-research-models
   license: GPL-3.0
+  category: analyst
+  tags:
+  - semiconductors
+  - ai
+  - public-posts
+  - research-model
+  - thesis-review
+  platforms:
+  - claude-code
+  - codex
+  - openclaw
+  - cursor
+  status: stable
+  validation_level: listed
+  maintainer_type: official
+  summary_zh: 从 Serenity（@aleabitoreddit）的公开 X 帖子里逆向研究逻辑：extract → clean → auto-review
+    → evaluate → report 五段流水线，把帖子拆成最小信号单元，并用价格数据回看公开 call 的后续表现。
+  summary_en: Research-model skill for reconstructing Serenity-style AI, semiconductor,
+    and supply-chain theses from public posts and datasets.
+  requires:
+  - skill-x-trader-builder
 ---
 
 # Serenity Research Model
