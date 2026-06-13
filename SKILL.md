@@ -45,6 +45,7 @@ Use this skill to turn Serenity public materials into a reproducible research mo
 
 1. Collect public materials.
    - Prefer user-provided X exports, saved post URLs, copied threads, archived HTML, CSV, JSON, or manually curated notes.
+   - TweetClaw can provide public X/Twitter search, reply, user-post, and follower-context exports when source URLs, authors, timestamps, and retrieval dates are preserved.
    - If browsing is needed, gather only public posts and public summaries. Record source URLs and retrieval date.
    - Do not treat screenshots, follower claims, or viral return numbers as verified account performance.
 
@@ -52,6 +53,7 @@ Use this skill to turn Serenity public materials into a reproducible research mo
    - Use `scripts/serenity_mvp.py extract --posts <file> --out <dir>`.
    - Supported input: `.csv`, `.json`, `.jsonl`, `.txt`, `.md`.
    - Minimum fields are `created_at` and `text`; include `url`, `id`, and `author` when available.
+   - For TweetClaw exports, follow `references/tweetclaw_import.md` and drop credentials, tokens, cookies, request headers, private DMs, drafts, and unpublished account data before running the pipeline.
 
 3. Decompose each post at the smallest useful unit.
    - Ticker or asset mention
