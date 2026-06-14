@@ -1,12 +1,12 @@
 # TweetClaw Import Notes
 
-TweetClaw can be used as an optional public X/Twitter capture source for this skill. Use it to prepare post, reply, search, user-post, or follower-context exports before running the existing `extract`, `clean`, `auto-review`, `evaluate`, and `report` pipeline.
+TweetClaw can be used as an optional public X/Twitter capture source for this skill. Use it to prepare post, reply, search, or user-post exports before running the existing `extract`, `clean`, `auto-review`, `evaluate`, and `report` pipeline.
 
 ## Boundary
 
-- Include public post text, public quoted text, source URLs, authors, post ids, timestamps, retrieval timestamps, and public engagement counts.
-- Exclude credentials, cookies, access tokens, request headers, private DMs, drafts, unpublished posts, raw session material, and non-public account metadata.
-- Treat follower and engagement counts as context only. They do not prove investment quality, account performance, or private returns.
+- Include public post text, public quoted text, source URLs, authors, post ids, timestamps, retrieval timestamps, public engagement counts, and public aggregate follower counts when relevant.
+- Exclude credentials, cookies, access tokens, request headers, private DMs, drafts, unpublished posts, raw session material, follower lists, account relationship lists, and non-public account metadata.
+- Treat public aggregate follower and engagement counts as context only. They do not prove investment quality, account performance, or private returns.
 - Preserve enough source context to separate Serenity's own text from quoted or replied-to text.
 
 ## Field Mapping

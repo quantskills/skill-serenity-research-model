@@ -4,7 +4,7 @@
 
 Accepted formats: CSV, JSON, JSONL, TXT, Markdown.
 
-TweetClaw CSV, JSON, and JSONL exports are acceptable when they contain only public X/Twitter materials. Keep source URLs and retrieval dates when available. Omit credentials, tokens, cookies, request headers, private DMs, drafts, and non-public account metadata.
+TweetClaw CSV, JSON, and JSONL exports are acceptable when they contain only public X/Twitter materials. Keep source URLs and retrieval dates when available. Omit credentials, tokens, cookies, request headers, private DMs, drafts, follower lists, account relationship lists, and non-public account metadata.
 
 Preferred columns or keys:
 

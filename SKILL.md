@@ -45,7 +45,7 @@ Use this skill to turn Serenity public materials into a reproducible research mo
 
 1. Collect public materials.
    - Prefer user-provided X exports, saved post URLs, copied threads, archived HTML, CSV, JSON, or manually curated notes.
-   - TweetClaw can provide public X/Twitter search, reply, user-post, and follower-context exports when source URLs, authors, timestamps, and retrieval dates are preserved.
+   - TweetClaw can provide public X/Twitter search, reply, and user-post exports when source URLs, authors, timestamps, and retrieval dates are preserved. Do not import follower lists; public follower or engagement counts are context only.
    - If browsing is needed, gather only public posts and public summaries. Record source URLs and retrieval date.
    - Do not treat screenshots, follower claims, or viral return numbers as verified account performance.
 
