@@ -4,6 +4,8 @@
 
 Accepted formats: CSV, JSON, JSONL, TXT, Markdown.
 
+TweetClaw CSV, JSON, and JSONL exports are acceptable when they contain only public X/Twitter materials. Keep source URLs and retrieval dates when available. Omit credentials, tokens, cookies, request headers, private DMs, drafts, follower lists, account relationship lists, and non-public account metadata.
+
 Preferred columns or keys:
 
 - `id`: platform post id or local id
@@ -13,6 +15,10 @@ Preferred columns or keys:
 - `url`: post URL
 - `reply_to`: parent post id or URL
 - `quote_of`: quoted post id or URL
+- `quoted_author`: quoted account handle, when available
+- `quoted_text`: quoted post text, when available
+- `retrieved_at`: capture or export timestamp
+- `likes`, `retweets`, `replies`, `quotes`, `bookmarks`: optional public engagement counts
 
 For TXT or Markdown, separate posts with a line containing `---` or two blank lines. If no date is present, the script leaves `created_at` blank and evaluation is skipped for that row.
 
@@ -28,6 +34,10 @@ For TXT or Markdown, separate posts with a line containing `---` or two blank li
 - `ticker`
 - `asset_type`
 - `text`
+- `quoted_author`
+- `quoted_text`
+- `is_quote`
+- `engagement_score`
 - `theme`
 - `subtheme`
 - `supply_chain_role`

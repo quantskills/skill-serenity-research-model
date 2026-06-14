@@ -4,6 +4,7 @@ Allowed sources:
 
 - Public X/Twitter posts
 - User-provided X exports
+- Public TweetClaw exports for X/Twitter search, replies, and user posts
 - Saved public threads
 - Public summaries
 - Public company filings
@@ -14,6 +15,7 @@ Allowed sources:
 Do not include:
 
 - Private DMs
+- Credentials, cookies, tokens, request headers, drafts, unpublished posts, follower lists, account relationship lists, or private account metadata
 - Restricted or paywalled materials without user-provided rights
 - Full copied third-party datasets intended for redistribution
 - Broker screenshots treated as audited proof

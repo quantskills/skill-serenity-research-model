@@ -5,6 +5,7 @@ Known public starting points for Serenity research:
 - X account: `https://x.com/aleabitoreddit`
 - X highlights: `https://x.com/aleabitoreddit/highlights`
 - Public repository observed during MVP planning: `https://github.com/yan-labs/serenity-aleabitoreddit`
+- Optional public X/Twitter capture source: TweetClaw (`https://github.com/Xquik-dev/tweetclaw`, `https://www.npmjs.com/package/@xquik/tweetclaw`). Use only public post, search, reply, and user-post exports. Do not import follower lists; public follower or engagement counts are context only. See `tweetclaw_import.md`.
 
 Working assumptions:
 
